@@ -1,4 +1,3 @@
-import java.util.List;
 
 public class ListStack<E> extends AbstractStack<E> {
     private IList<E> list;
@@ -15,14 +14,14 @@ public class ListStack<E> extends AbstractStack<E> {
 
     @Override
     public E pop() {
-        if (isEmpty()) throw new IllegalStateException("Stack is empty");
+        if (isEmpty()) throw new IllegalStateException("Stack está vacío");
         size--;
         return list.remove();
     }
 
     @Override
     public E peek() {
-        if (isEmpty()) throw new IllegalStateException("Stack is empty");
+        if (isEmpty()) throw new IllegalStateException("Stack está vacío");
         return list.get(size - 1);
     }
 }
