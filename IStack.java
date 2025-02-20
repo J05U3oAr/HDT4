@@ -1,6 +1,10 @@
-public interface IStack<T> {
-    void push(T element);
-    T pop();
-    T peek();
+public interface IStack<E> {
+    void push(E element);
+    E pop();
+
+    E peek();
+
+    int size();
+    
     boolean isEmpty();
 }

@@ -1,5 +1,5 @@
-import java.util.List;
 import java.util.LinkedList;
+import java.util.List;
 
 public class ListStack<E> extends AbstractStack<E> {
     private List<E> list = new LinkedList<>();

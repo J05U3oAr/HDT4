@@ -1,6 +1,6 @@
 public class StackFactory {
   
-    public static <T> IStack<T> createStack(String stackType, String listType) {
+    public static <E> IStack<E> createStack(String stackType, String listType) {
         if (stackType.equalsIgnoreCase("ArrayList")) {
             return new ArrayListStack<>();
         } else if (stackType.equalsIgnoreCase("Vector")) {

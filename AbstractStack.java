@@ -1,4 +1,4 @@
-public abstract class AbstractStack<E> implements Stack<E> {
+public abstract class AbstractStack<E> implements IStack<E> {
     protected int size;
 
     @Override
