@@ -1,8 +1,11 @@
-import java.util.LinkedList;
 import java.util.List;
 
 public class ListStack<E> extends AbstractStack<E> {
-    private List<E> list = new LinkedList<>();
+    private IList<E> list;
+
+    public ListStack(IList<E> list) {
+        this.list = list;
+    }
 
     @Override
     public void push(E item) {
@@ -14,7 +17,7 @@ public class ListStack<E> extends AbstractStack<E> {
     public E pop() {
         if (isEmpty()) throw new IllegalStateException("Stack is empty");
         size--;
-        return list.remove(size);
+        return list.remove();
     }
 
     @Override
