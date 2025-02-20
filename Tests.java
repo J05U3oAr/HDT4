@@ -2,6 +2,24 @@ import org.junit.*;
 import static org.junit.Assert.*;
 import java.util.ArrayList;
 
+/**
+ * Clase de pruebas unitarias para las implementaciones de pilas y listas enlazadas.
+ * Se utilizan pruebas con JUnit para verificar el comportamiento de las estructuras de datos.
+ * 
+ * Se prueban las siguientes estructuras:
+ * - {@link ArrayListStack}
+ * - {@link VectorStack}
+ * - {@link ListStack} con {@link SinglyLinkedList} y {@link DoublyLinkedList}
+ * - {@link SinglyLinkedList}
+ * - {@link DoublyLinkedList}
+ * 
+ * @author Diego Calderón
+ * @author Arodi Chavez
+ * @author Derek Coronado
+ * @version 1.0
+ * @since 13/02/2025
+ * @lastModified 20/02/2025
+ */
 public class Tests {
     private IStack<Integer> arrayListStack;
     private IStack<Integer> vectorStack;
@@ -9,6 +27,9 @@ public class Tests {
     private IList<Integer> singlyLinkedList;
     private IList<Integer> doublyLinkedList;
 
+    /**
+     * Configura las estructuras de datos antes de cada prueba.
+     */
     @Before
     public void setUp() {
         arrayListStack = new ArrayListStack<>();
@@ -19,6 +40,9 @@ public class Tests {
         listStack = new ListStack<>(new DoublyLinkedList<>());
     }
 
+    /**
+     * Prueba la funcionalidad de push y pop en una pila basada en {@link ArrayListStack}.
+     */
     @Test
     public void testPushAndPopArrayListStack() {
         arrayListStack.push(10);
@@ -27,6 +51,9 @@ public class Tests {
         assertEquals(10, (int) arrayListStack.pop());
     }
 
+    /**
+     * Prueba la funcionalidad de push y peek en una pila basada en {@link VectorStack}.
+     */
     @Test
     public void testPushAndPeekVectorStack() {
         vectorStack.push(5);
@@ -36,6 +63,9 @@ public class Tests {
         assertEquals(5, (int) vectorStack.peek());
     }
 
+    /**
+     * Prueba la funcionalidad de push y pop en una pila basada en {@link ListStack}.
+     */
     @Test
     public void testPushAndPopListStack() {
         listStack.push(30);
@@ -44,6 +74,9 @@ public class Tests {
         assertEquals(30, (int) listStack.pop());
     }
 
+    /**
+     * Prueba la funcionalidad de agregar y remover elementos en una {@link SinglyLinkedList}.
+     */
     @Test
     public void testAddAndRemoveSinglyLinkedList() {
         singlyLinkedList.add(100);
@@ -52,14 +85,20 @@ public class Tests {
         assertEquals(200, (int) singlyLinkedList.remove());
     }
 
+    /**
+     * Prueba la funcionalidad de agregar y remover elementos en una {@link DoublyLinkedList}.
+     */
     @Test
     public void testAddAndRemoveDoublyLinkedList() {
-    doublyLinkedList.add(300);
-    doublyLinkedList.add(400);
-    assertEquals(400, (int) doublyLinkedList.remove());
-    assertEquals(300, (int) doublyLinkedList.remove());
+        doublyLinkedList.add(300);
+        doublyLinkedList.add(400);
+        assertEquals(400, (int) doublyLinkedList.remove());
+        assertEquals(300, (int) doublyLinkedList.remove());
     }
     
+    /**
+     * Prueba la funcionalidad de obtener un elemento de una {@link SinglyLinkedList}.
+     */
     @Test
     public void testGetElementFromSinglyLinkedList() {
         singlyLinkedList.add(1);
@@ -68,6 +107,9 @@ public class Tests {
         assertEquals(2, (int) singlyLinkedList.get(1));
     }
 
+    /**
+     * Prueba la funcionalidad de obtener un elemento de una {@link DoublyLinkedList}.
+     */
     @Test
     public void testGetElementFromDoublyLinkedList() {
         doublyLinkedList.add(10);

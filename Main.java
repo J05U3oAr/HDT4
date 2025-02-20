@@ -3,7 +3,24 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * Clase principal que ejecuta la calculadora de expresiones matemáticas.
+ * Permite al usuario seleccionar la implementación de la pila y lee una expresión infix desde un archivo
+ * para convertirla a postfix y evaluarla.
+ * 
+ * @author Diego Calderón
+ * @author Arodi Chavez
+ * @author Derek Coronado
+ * @version 1.0
+ * @since 13/02/2025
+ * @lastModified 20/02/2025
+ */
 public class Main {
+    /**
+     * Método principal que controla la ejecución del programa.
+     * 
+     * @param args Argumentos de línea de comandos (no utilizados en este caso).
+     */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
 
@@ -14,11 +31,12 @@ public class Main {
         System.out.println("3. Lista");
         System.out.print("Ingrese opción (1-3): ");
         int option = scanner.nextInt();
-        scanner.nextLine(); // consumir el salto de línea
+        scanner.nextLine(); // Consumir el salto de línea
 
         String stackType = "";
         String listType = "";
 
+        // Determinar el tipo de pila y lista en caso de ser necesario
         switch (option) {
             case 1:
                 stackType = "ArrayList";

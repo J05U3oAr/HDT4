@@ -1,19 +1,44 @@
+/**
+ * La clase {@code Calculator} implementa una calculadora basada en pilas 
+ * que permite la conversión de expresiones en notación infija a postfija 
+ * y su evaluación.
+ * 
+ * <p>Esta clase sigue el patrón Singleton para garantizar que solo haya 
+ * una instancia de la calculadora en ejecución.</p>
+ * 
+ * @author Diego Calderón
+ * @author Arodi Chavez
+ * @author Derek Coronado
+ * @version 1.0
+ * @since 13/02/2025
+ * @lastModified 20/02/2025
+ */
 public class Calculator {
-    // Instancia única (Singleton)
+    /** Instancia única de la calculadora (patrón Singleton). */
     private static Calculator instance = null;
 
-    // Constructor privado
+    /** Constructor privado para evitar la instanciación externa. */
     private Calculator() { }
 
-    // Método para obtener la instancia única
+    /**
+     * Retorna la instancia única de la calculadora.
+     * Si no existe, la crea.
+     * 
+     * @return instancia única de {@code Calculator}.
+     */
     public static Calculator getInstance() {
         if (instance == null) {
             instance = new Calculator();
         }
         return instance;
     }
-    
 
+    /**
+     * Convierte una expresión en notación infija a notación postfija (notación polaca inversa).
+     *
+     * @param infixExpression la expresión infija a convertir.
+     * @return la expresión en notación postfija.
+     */
     public String convertInfixToPostfix(String infixExpression) {
         StringBuilder postfix = new StringBuilder();
         IStack<Character> opStack = new VectorStack<>(); // Usamos VectorStack para operadores
@@ -29,15 +54,13 @@ public class Calculator {
                     i++;
                 }
                 i--; // Ajustar el índice, ya que el bucle for incrementará
-                postfix.append(number.toString());
-                postfix.append(" ");
+                postfix.append(number.toString()).append(" ");
             } else if (ch == '(') {
                 opStack.push(ch);
             } else if (ch == ')') {
                 // Sacar de la pila hasta encontrar el '('
                 while (!opStack.isEmpty() && opStack.peek() != '(') {
-                    postfix.append(opStack.pop());
-                    postfix.append(" ");
+                    postfix.append(opStack.pop()).append(" ");
                 }
                 if (!opStack.isEmpty() && opStack.peek() == '(') {
                     opStack.pop();
@@ -46,28 +69,31 @@ public class Calculator {
                 // Mientras haya operadores en la pila con mayor o igual precedencia, extraerlos
                 while (!opStack.isEmpty() && opStack.peek() != '('
                         && getPrecedence(ch) <= getPrecedence(opStack.peek())) {
-                    postfix.append(opStack.pop());
-                    postfix.append(" ");
+                    postfix.append(opStack.pop()).append(" ");
                 }
                 opStack.push(ch);
             }
-            // Se ignoran los espacios y otros caracteres
         }
 
         // Vaciar la pila de operadores
         while (!opStack.isEmpty()) {
-            postfix.append(opStack.pop());
-            postfix.append(" ");
+            postfix.append(opStack.pop()).append(" ");
         }
 
         return postfix.toString().trim();
     }
-  
-    
+
+    /**
+     * Evalúa una expresión en notación postfija.
+     *
+     * @param postfixExpression la expresión en notación postfija.
+     * @return el resultado de la evaluación.
+     * @throws RuntimeException si la expresión es inválida o hay un error en la evaluación.
+     */
     public int evaluatePostfix(String postfixExpression) {
         IStack<Integer> stack = new VectorStack<>();
         String[] tokens = postfixExpression.split("\\s+");
-        
+
         for (String token : tokens) {
             // Si el token es un número, lo empuja a la pila
             if (token.matches("\\d+")) {
@@ -102,19 +128,29 @@ public class Calculator {
                 throw new RuntimeException("Token inválido: " + token);
             }
         }
-        
+
         if (stack.size() != 1) {
             throw new RuntimeException("La expresión es inválida, quedan múltiples valores en la pila.");
         }
         return stack.pop();
     }
-    
-    // Método auxiliar: verifica si un carácter es un operador válido.
+
+    /**
+     * Verifica si un carácter es un operador válido.
+     *
+     * @param ch el carácter a verificar.
+     * @return {@code true} si es un operador, {@code false} en caso contrario.
+     */
     private boolean isOperator(char ch) {
         return ch == '+' || ch == '-' || ch == '*' || ch == '/' || ch == '%' || ch == '^';
     }
-    
-    // Método auxiliar: retorna la precedencia de un operador.
+
+    /**
+     * Obtiene la precedencia de un operador.
+     *
+     * @param op el operador.
+     * @return un número que indica la precedencia del operador.
+     */
     private int getPrecedence(char op) {
         switch (op) {
             case '+':
@@ -126,15 +162,19 @@ public class Calculator {
             default:  return -1;
         }
     }
-    
-    
+
+    /**
+     * Evalúa una operación matemática representada como una cadena en notación postfija.
+     *
+     * @param operacion la operación en notación postfija.
+     */
     public void evaluar(String operacion) {
         IStack<Integer> pila = new VectorStack<>();
         boolean exito = true;
-        
+
         for (int i = 0; i < operacion.length(); i++) {
             char caracter = operacion.charAt(i);
-            
+
             if (Character.isDigit(caracter)) {
                 int numero = Character.getNumericValue(caracter);
                 while ((i + 1 < operacion.length()) && Character.isDigit(operacion.charAt(i + 1))) {
@@ -175,7 +215,7 @@ public class Calculator {
                 break;
             }
         }
-        
+
         if (exito) {
             if (pila.size() == 1) {
                 System.out.println("Resultado: " + pila.pop());
